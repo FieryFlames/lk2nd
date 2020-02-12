@@ -28,6 +28,7 @@
  * SUCH DAMAGE.
  */
 
+#include <arch/defines.h>
 #include <debug.h>
 #include <reg.h>
 #include <sys/types.h>
@@ -114,6 +115,61 @@ unsigned smem_read_alloc_entry(smem_mem_type_t type, void *buf, int len)
 	src = smem_addr + readl(&ainfo->offset);
 	for (; len > 0; src += 4, len -= 4)
 		*(dest++) = readl(src);
+
+	return 0;
+}
+
+/* buf MUST be 4byte aligned, and len MUST be a multiple of 8. */
+unsigned smem_alloc_write_entry(smem_mem_type_t type, const void *buf, unsigned size)
+{
+	const uint32_t *src = buf, *src_end = buf + size;
+	uint32_t remaining, offset, smem_addr;
+	struct smem_alloc_info *ainfo;
+	uint32_t *dest;
+
+#if DYNAMIC_SMEM
+	smem_addr = smem_get_base_addr();
+#else
+	smem_addr = platform_get_smem_base_addr();
+#endif
+
+	smem = (struct smem *)smem_addr;
+
+	if (((size & 0x3) != 0) || (((unsigned)buf & 0x3) != 0))
+		return 1;
+
+	if (type < SMEM_FIRST_VALID_TYPE || type > SMEM_LAST_VALID_TYPE)
+		return 1;
+
+	/* TODO: Use smem spinlocks */
+	ainfo = &smem->alloc_info[type];
+	if (readl(&ainfo->allocated)) {
+		dprintf(CRITICAL, "SMEM entry %d is already allocated\n", type);
+		return 1;
+	}
+
+	remaining = readl(&smem->heap_info.heap_remaining);
+	if (size > remaining) {
+		dprintf(CRITICAL, "Not enough space in SMEM for entry %d (size: %u, remaining: %u)\n",
+			type, size, remaining);
+		return 1;
+	}
+
+	/* Allocate entry in SMEM */
+	offset = readl(&smem->heap_info.free_offset);
+	writel(offset, &ainfo->offset);
+	writel(size, &ainfo->size);
+
+	dsb();
+	writel(1, &ainfo->allocated);
+
+	writel(offset + size, &smem->heap_info.free_offset);
+	writel(remaining - size, &smem->heap_info.heap_remaining);
+	dsb();
+
+	/* Write data to SMEM */
+	for (dest = (uint32_t*)(smem_addr + offset); src < src_end; ++src, ++dest)
+		writel(*src, dest);
 
 	return 0;
 }
