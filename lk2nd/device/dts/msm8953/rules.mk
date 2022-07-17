@@ -2,3 +2,4 @@
 LOCAL_DIR := $(GET_LOCAL_DIR)
 
 ADTBS += \
+	$(LOCAL_DIR)/sdm450-motorola-ali.dtb \
