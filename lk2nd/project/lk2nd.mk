@@ -7,6 +7,7 @@ MODULES += \
 	lk2nd/device \
 	lk2nd/device/2nd \
 	lk2nd/hw/gpio \
+	dev/gpio_i2c \
 
 # The primary bootloader will implement LONG_PRESS_POWER_ON if needed.
 # If we do it again in lk2nd we might accidentally shutdown the device because

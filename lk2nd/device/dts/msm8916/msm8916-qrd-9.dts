@@ -2,10 +2,16 @@
 
 #include <skeleton64.dtsi>
 #include <lk2nd.dtsi>
+#include <dt-bindings/gpio.h>
 
 / {
 	qcom,msm-id = <QCOM_ID_MSM8916 0>;
 	qcom,board-id = <QCOM_BOARD_ID_QRD 9>;
+
+	tlmm: tlmm {
+		compatible = "lk2nd,tlmm";
+		phandle = <0x47494f01>; /* 'GIO\x01' == tlmm */
+	};
 };
 
 &lk2nd {
@@ -24,6 +30,13 @@
 			qcom,mdss_dsi_booyi_OTM1287_720p_video {
 				compatible = "longcheer,booyi-otm1287";
 			};
+		};
+
+		led {
+			compatible = "awinic,aw2013";
+			i2c-reg = <0x14>;
+			i2c-sda-gpios = <&tlmm 2 GPIO_ACTIVE_HIGH>;
+			i2c-scl-gpios = <&tlmm 3 GPIO_ACTIVE_HIGH>;
 		};
 	};
 };

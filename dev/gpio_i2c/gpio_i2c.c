@@ -33,6 +33,8 @@
 #include <kernel/mutex.h>
 #include <platform/timer.h>
 
+#define GPIO_I2C_BUS_COUNT 3
+
 #if (!(defined(GPIO_I2C_BUS_COUNT)) || (GPIO_I2C_BUS_COUNT <= 0))
 #error ERROR: Must define GPIO_I2C_BUS_COUNT
 #endif
