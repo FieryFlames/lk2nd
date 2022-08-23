@@ -20,6 +20,7 @@ MODULES += \
 	lk2nd/hw/gpio \
 	lk2nd/hw/i2c \
 	lk2nd/mac \
+	lk2nd/serialno \
 	lk2nd/smp \
 	lk2nd/smp/spin-table \
 
