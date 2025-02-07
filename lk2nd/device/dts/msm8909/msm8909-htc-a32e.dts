@@ -1,0 +1,57 @@
+// SPDX-License-Identifier: BSD-3-Clause
+
+#include <skeleton64.dtsi>
+#include <lk2nd.dtsi>
+
+/ {
+	qcom,msm-id = <QCOM_ID_IPQ8076A 0>;
+	qcom,board-id = <0 0>, <1 0>, <2 0>, <3 0>;
+};
+
+&lk2nd {
+	model = "HTC Desire 626s (a32e)";
+	compatible = "htc,a32e";
+
+	lk2nd,dtb-files = "msm8909-htc-a32e";
+
+	gpio-keys {
+		compatible = "gpio-keys";
+		power {
+			lk2nd,code = <KEY_POWER>;
+			gpios = <&tlmm 92 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+		};
+		down {
+			lk2nd,code = <KEY_VOLUMEDOWN>;
+			gpios = <&tlmm 91 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+		};
+		up {
+			lk2nd,code = <KEY_VOLUMEUP>;
+			gpios = <&tlmm 90 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+		};
+	};
+
+	panel {
+		compatible = "htc,a32e-panel", "lk2nd,panel";
+
+		// Engineering Validation Model, maybe unused?
+		qcom,mdss_dsi_a32e_evm_tianma_hx8394d_720p_video {
+			compatible = "htc,evm-tianma-hx8394d";
+		};
+
+		qcom,mdss_dsi_a32e_tianma_hx8394d_720p_video {
+			compatible = "htc,tianma-hx8394d";
+		};
+
+		qcom,mdss_dsi_a32e_truly_hx8394d_720p_video {
+			compatible = "htc,truly-hx8394d";
+		};
+
+		qcom,mdss_dsi_a32e_truly_hx8394f_720p_video {
+			compatible = "htc,truly-hx8394f";
+		};
+
+		qcom,mdss_dsi_a32e_mr_truly_hx8394d_720p_video {
+			compatible = "htc,mr-truly-hx8394f";
+		};
+	};
+};
