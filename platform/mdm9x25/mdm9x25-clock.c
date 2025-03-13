@@ -111,8 +111,8 @@ static struct pll_vote_clk gpll0_clk_src =
 /* UART Clocks */
 
 static struct vote_clk gcc_blsp1_ahb_clk = {
-	.cbcr_reg = BLSP1_AHB_CBCR,
-	.vote_reg = APCS_CLOCK_BRANCH_ENA_VOTE,
+	.cbcr_reg = (uint32_t *) BLSP1_AHB_CBCR,
+	.vote_reg = (uint32_t *) APCS_CLOCK_BRANCH_ENA_VOTE,
 	.en_mask = BIT(17),
 
 	.c = {

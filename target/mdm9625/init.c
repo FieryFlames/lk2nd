@@ -37,6 +37,8 @@
 #include <ctype.h>
 #include <string.h>
 #include <pm8x41.h>
+#include <spmi.h>
+#include <uart_dm.h>
 #include <reg.h>
 #include <platform/timer.h>
 

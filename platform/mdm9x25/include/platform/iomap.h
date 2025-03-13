@@ -83,6 +83,13 @@
 /* NAND BAM */
 #define MSM_NAND_BAM_BASE          0xF9AC4000
 
+/* SDHCI */
+#define SDCC_MCI_HC_MODE            (0x00000078)
+#define SDCC_HC_PWRCTL_STATUS_REG   (0x000000DC)
+#define SDCC_HC_PWRCTL_MASK_REG     (0x000000E0)
+#define SDCC_HC_PWRCTL_CLEAR_REG    (0x000000E4)
+#define SDCC_HC_PWRCTL_CTL_REG      (0x000000E8)
+
 /************ CLOCKS ***********/
 
 /* GPLL */
