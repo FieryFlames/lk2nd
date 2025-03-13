@@ -39,11 +39,10 @@
 #include <smem.h>
 #include <reg.h>
 #include <board.h>
+#include <platform/clock.h>
 #include <boot_stats.h>
 
 extern struct smem_ram_ptable* target_smem_ram_ptable_init(void);
-
-#define MB                                  (1024*1024)
 
 #define MSM_IOMAP_SIZE                      ((MSM_IOMAP_END - MSM_IOMAP_BASE)/MB)
 

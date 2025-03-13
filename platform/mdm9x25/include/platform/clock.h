@@ -33,5 +33,6 @@
 
 void hsusb_clock_init(void);
 void clock_config_uart_dm(uint8_t id);
+void platform_clock_init(void);
 
 #endif

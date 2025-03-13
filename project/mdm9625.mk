@@ -23,5 +23,10 @@ ENABLE_THUMB := false
 #Override linker
 LD := $(TOOLCHAIN_PREFIX)ld.bfd
 
+ENABLE_SDHCI_SUPPORT := 1
+ifeq ($(ENABLE_SDHCI_SUPPORT),1)
+DEFINES += MMC_SDHCI_SUPPORT=1
+endif
+
 # No display support in LK
 ENABLE_DISPLAY := 0
