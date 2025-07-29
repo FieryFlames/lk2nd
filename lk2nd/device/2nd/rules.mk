@@ -65,6 +65,7 @@ $(OUTBOOTIMG): $(OUTBINDTB) $(OUTQCDT) $(RAMDISK)
 		--cmdline="$(MKBOOTIMG_CMDLINE)" \
 		$(if $(OUTQCDT),--qcdt=$(OUTQCDT)) \
 		$(if $(MKBOOTIMG_BASE),--base=$(MKBOOTIMG_BASE)) \
+		$(if $(MKBOOTIMG_TAGS_OFFSET),--tags_offset=$(MKBOOTIMG_TAGS_OFFSET)) \
 		$(if $(MKBOOTIMG_PAGESIZE),--pagesize=$(MKBOOTIMG_PAGESIZE)) \
 		--ramdisk=$(RAMDISK) \
 		$(MKBOOTIMG_ARGS)
