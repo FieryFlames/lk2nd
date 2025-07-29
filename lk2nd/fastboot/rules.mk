@@ -3,8 +3,11 @@ LOCAL_DIR := $(GET_LOCAL_DIR)
 
 OBJS += \
 	$(LOCAL_DIR)/fetch.o \
-	$(LOCAL_DIR)/hash.o \
 	$(LOCAL_DIR)/misc.o \
+
+ifneq ($(PLATFORM),mdm9x25)
+OBJS += $(LOCAL_DIR)/hash.o 
+endif
 
 ifneq ($(filter DISPLAY_SPLASH_SCREEN=1,$(DEFINES)),)
 OBJS += \
