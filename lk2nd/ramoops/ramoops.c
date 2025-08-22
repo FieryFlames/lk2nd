@@ -49,8 +49,8 @@ static void get_ramoops_region(struct ramoops_region *region)
 	region->ftrace_size	= 0;
 
 	region->dump_size	= region->size - region->console_size - region->ftrace_size - region->pmsg_size;
-	region->base		= (scratch + scratch_size - region->size);
-}
+	region->base		= (void *)0x1000000;
+}                               
 
 
 static int lk2nd_ramoops_dt_update(void *dtb, const char *cmdline, enum boot_type boot_type)
@@ -229,6 +229,7 @@ static void cmd_oem_ramoops_dump(const char *arg, void *data, unsigned sz)
 
 	if (header->magic != RAMOOPS_KERNMSG_HDR)
 		fastboot_fail("Dump corrupted.");
+		return;
 
 	if (header->compressed == 'C') {
 		ret = uncompress(scratch, &size, header->data, record->size);

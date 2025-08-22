@@ -4,6 +4,7 @@ LOCAL_DIR := $(GET_LOCAL_DIR)
 OBJS += \
 	$(LOCAL_DIR)/fetch.o \
 	$(LOCAL_DIR)/misc.o \
+	$(LOCAL_DIR)/update-dtb.o \
 
 ifneq ($(PLATFORM),mdm9x25)
 OBJS += $(LOCAL_DIR)/hash.o 
